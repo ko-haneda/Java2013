@@ -1,4 +1,4 @@
-package ex16_10;
+package ch16.ex16_10;
 
 import java.lang.reflect.*;
 

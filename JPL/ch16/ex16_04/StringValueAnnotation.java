@@ -1,4 +1,4 @@
-package ex16_04;
+package ch16.ex16_04;
 
 @interface StringValueAnnotation {
 	String value(); 

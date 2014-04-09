@@ -1,4 +1,4 @@
-package ex16_01;
+package ch16.ex16_01;
 
 
 public class ex16_1 {

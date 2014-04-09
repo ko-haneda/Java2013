@@ -1,4 +1,4 @@
-package ex16_08;
+package ch16.ex16_08;
 
 final class SortMetrics implements Cloneable{
 	private long probeCnt, compareCnt, swapCnt;

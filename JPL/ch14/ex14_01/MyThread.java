@@ -1,4 +1,4 @@
-package ex14_01;
+package ch14.ex14_01;
 
 public class MyThread extends Thread{
 	private int delay;

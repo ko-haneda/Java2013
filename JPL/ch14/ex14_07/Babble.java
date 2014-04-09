@@ -1,4 +1,4 @@
-package ex14_07;
+package ch14.ex14_07;
 
 class Babble extends Thread {
 	static boolean doYield;

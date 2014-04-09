@@ -1,4 +1,4 @@
-package ex14_03;
+package ch14.ex14_03;
 
 public class MyThread extends Thread {
 	private static int sum = 0;

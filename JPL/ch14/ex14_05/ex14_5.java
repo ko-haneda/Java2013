@@ -1,4 +1,4 @@
-package ex14_05;
+package ch14.ex14_05;
 
 public class ex14_5 {
 	

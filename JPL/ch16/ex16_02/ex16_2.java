@@ -1,4 +1,4 @@
-package ex16_02;
+package ch16.ex16_02;
 
 //未実装
 public class ex16_2 {

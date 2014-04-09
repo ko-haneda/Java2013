@@ -1,4 +1,4 @@
-package ex14_10;
+package ch14.ex14_10;
 
 import java.util.*;
 
