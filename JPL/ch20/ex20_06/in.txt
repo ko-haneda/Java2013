@@ -1,0 +1,7 @@
+haneda - -10
+suzuki - 1
+tanaka + 4
+haneda + 2
+haneda - 7
+tanaka = 10
+suzuki + 3

@@ -1,0 +1,7 @@
+Software testing is an investigation conducted 
+to provide stakeholders with information about
+ the quality of the product or service under test.
+Software testing can also provide an objective, independent view of the software to allow the 
+ business to appreciate and understand the risks
+ of software implementation.
+ test test test test test test.
