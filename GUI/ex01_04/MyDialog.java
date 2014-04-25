@@ -25,6 +25,7 @@ class MyDialog extends Dialog implements ActionListener {
 		gbc.gridy = y;
 		gbc.gridwidth = w;
 		gbc.gridheight = h;
+		gbc.insets = new Insets(5, 5, 5, 5);
 		gbl.setConstraints(c, gbc);
 		add(c);
 	}
@@ -36,20 +37,17 @@ class MyDialog extends Dialog implements ActionListener {
 		flag = false;
 		// フォントの指定
 		l1 = new Label("フォント");
-		add(l1);
 		c1 = new Choice();
 		c1.add("Type1");
 		c1.add("Type2");
 		// フォントサイズの指定
 		l2 = new Label("フォントサイズ");
-		add(l2);
 		c2 = new Choice();
 		c2.add("Large");
 		c2.add("Medium");
 		c2.add("Small");
 		// 文字色の指定
 		l3 = new Label("文字色");
-		add(l3);
 		c3 = new Choice();
 		c3.add("BLACK");
 		c3.add("WHITE");
@@ -58,7 +56,6 @@ class MyDialog extends Dialog implements ActionListener {
 		c3.add("BLUE");
 		// 背景色の設定
 		l4 = new Label("背景色");
-		add(l4);
 		c4 = new Choice();
 		c4.add("BLACK");
 		c4.add("WHITE");
@@ -76,19 +73,19 @@ class MyDialog extends Dialog implements ActionListener {
 		setResizable(false);
 		setLayout(gbl);
 		addComponent(l1, 0, 0, 1, 1);		
-		addComponent(c1, 2, 0, 1, 1);
+		addComponent(c1, 1, 0, 1, 1);
 		
-		addComponent(c2, 2, 1, 1, 1);
-		addComponent(l2, 0, 1, 1, 2);
+		addComponent(c2, 1, 1, 1, 1);
+		addComponent(l2, 0, 1, 1, 1);
 		
-		addComponent(c3, 2, 2, 1, 1);
+		addComponent(c3, 1, 2, 1, 1);
 		addComponent(l3, 0, 2, 1, 1);
 
-		addComponent(c4, 2, 3, 1, 1); 
+		addComponent(c4, 1, 3, 1, 1); 
 		addComponent(l4, 0, 3, 1, 1);
 		
 		addComponent(b1, 0, 4, 1, 1); 
-		addComponent(b2, 2, 4, 1, 1); 
+		addComponent(b2, 1, 4, 1, 1); 
 
 	}
 

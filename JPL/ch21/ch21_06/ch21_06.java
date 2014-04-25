@@ -2,25 +2,22 @@ package ch21.ch21_06;
 
 import java.io.*;
 
-// TODO
+//p.463のConcatではすべてのファイルのストリームを結合している。
+//この問題では結合せずにやるということ。
+//1度に1つopenしているが、
+//1度に1つcloseするようには作成していない。（無理？）
 public class ch21_06 {
-	//ch20_05を複数のファイルで行えるようにし、
-	//それを一つずつopenするように作成する。
-	//また、FileReaderを使用していたところを
-	//FileInputStreamに変更。
-	
 	public static void main(String[] args) throws IOException {
-		String file_name = new File("").getAbsolutePath() + "\\src\\ch20_05\\in.txt";
-		String search_word = "test";
+		StringBuffer files_name = new StringBuffer();
+		files_name.append(new File("").getAbsolutePath() + "\\src\\ch21_06\\1.txt,");
+		files_name.append(new File("").getAbsolutePath() + "\\src\\ch21_06\\2.txt,");
+		files_name.append(new File("").getAbsolutePath() + "\\src\\ch21_06\\3.txt,");
+		files_name.append(new File("").getAbsolutePath() + "\\src\\ch21_06\\4.txt");
 		
-		InputStreamReader fileIn = new FileReader(file_name);
-		LineNumberReader in = new LineNumberReader(fileIn);
-		String str;
-		while((str = in.readLine()) != null){
-			if(str.indexOf(search_word) != -1){
-				System.out.println(in.getLineNumber() + "行目\t:" + str);
-			} 
-		}
-		in.close();
+		System.out.println("p463のConcat");
+		Concat.concatenate1(files_name.toString().split(","));
+		System.out.println();
+		System.out.println("独自のConcat");
+		Concat.concatenate2(files_name.toString().split(","));
 	}
 }
