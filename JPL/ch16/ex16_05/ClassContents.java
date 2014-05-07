@@ -1,5 +1,6 @@
-package ch16.ex16_03;
+package ch16.ex16_05;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 
 public class ClassContents {
@@ -13,6 +14,8 @@ public class ClassContents {
 			printMembers(c.getConstructors());
 			System.out.println("メソッド一覧");
 			printMembers(c.getMethods());
+			System.out.println("アノテーション一覧");
+			printAnnotations(c.getAnnotations());
 		} catch (ClassNotFoundException e) {
 			System.out.println("unknown class: " + args[0]);
 		}
@@ -29,6 +32,12 @@ public class ClassContents {
 			decl = strip(decl, "java.util.");
 			System.out.println(decl);
 			
+		}
+	}
+	
+	public static void printAnnotations(Annotation[] annos) {
+		for (Annotation a : annos) {
+			System.out.println(a);
 		}
 	}
 
