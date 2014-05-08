@@ -8,17 +8,27 @@ public class Friendly {
 		this.name = name;
 	}
 
+	//①
 	public synchronized void hug() {
-		synchronized (partner) {
-			System.out.println(Thread.currentThread().getName() + " in " + name
-					+ ".hug() trying to invoke " + partner.name + ".hugBack()");
-			partner.hugBack();
-		}
+		System.out.println(Thread.currentThread().getName() + " in " + name + ".hug() trying to invoke " + partner.name + ".hugBack()");
+		partner.hugBack();
 	}
+	//②	
+//	public synchronized void hug() {
+//		System.out.println(Thread.currentThread().getName() + " in " + name + ".hug() trying to invoke " + partner.name + ".hugBack()");
+//		partner.hugBack();
+//		Thread.yield();
+//	}
+	//③
+//	public synchronized void hug() {
+//		synchronized (partner) {
+//			System.out.println(Thread.currentThread().getName() + " in " + name + ".hug() trying to invoke " + partner.name + ".hugBack()");
+//			partner.hugBack();
+//		}
+//	}
 
 	public synchronized void hugBack() {
-		System.out.println(Thread.currentThread().getName() + " in " + name
-				+ ".hugBack()");
+		System.out.println(Thread.currentThread().getName() + " in " + name + ".hugBack()");
 	}
 
 	public void becomeFriend(Friendly partner) {
