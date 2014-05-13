@@ -1,0 +1,10 @@
+﻿1234567890
+qwertyuiop
+asdfghjkl
+zxcvbnm,./
+testetstest
+testsete
+hello java
+//ここまで表示される　以下　言い訳
+このファイルは作成したJava Project直下に保存してある。
+本当はch23_03まで移動して"cat in.txt"を実行したかったがやり方がわからなかった。
