@@ -1,4 +1,4 @@
-package ex02_03;
+package Swing.ex02_03;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -6,7 +6,7 @@ import java.io.File;
 
 import javax.swing.*;
 
-public class MyPopupMenu extends JPopupMenu implements ActionListener, MouseMotionListener{
+public class MyPopupMenu extends JPopupMenu implements ActionListener, MouseListener{
 	private static final long serialVersionUID = 1L;
 	private static final String[] COLORS = {"WHITE", "LIGHT_GRAY", "GRAY", "DARK_GRAY", 
 											"BLACK", "RED", "PINK", "ORANGE", "YELLOW",
@@ -63,7 +63,7 @@ public class MyPopupMenu extends JPopupMenu implements ActionListener, MouseMoti
 	
 	    //背景色と文字色の指定
 	    for(String color : COLORS){
-	    	ImageIcon icon = new ImageIcon(new File("").getAbsolutePath() + "\\src\\ex02_03\\COLOR\\"+ color + ".jpg");
+	    	ImageIcon icon = new ImageIcon(new File("").getAbsolutePath() + "\\src\\Swing\\ex02_03\\COLOR\\"+ color + ".jpg");
 	    	JMenuItem mi1 = new JMenuItem(color, icon);
 	    	JMenuItem mi2 = new JMenuItem(color, icon);
 	    	mBgColor.add(mi1);
@@ -74,14 +74,10 @@ public class MyPopupMenu extends JPopupMenu implements ActionListener, MouseMoti
 	    
 	    //閉じる
 	    miExit.addActionListener(this);
-	    upName.addActionListener(this);
-	    upName.addMouseMotionListener(this);
-	    downName.addActionListener(this);
-	    downName.addMouseMotionListener(this);
-	    upSize.addActionListener(this);
-	    upSize.addMouseMotionListener(this);
-	    downSize.addActionListener(this);
-	    downSize.addMouseMotionListener(this);
+	    upName.addMouseListener(this);
+	    downName.addMouseListener(this);
+	    upSize.addMouseListener(this);
+	    downSize.addMouseListener(this);
 	    
 	    //ポップアップに全てを追加
 	    add(mFontName);
@@ -98,16 +94,9 @@ public class MyPopupMenu extends JPopupMenu implements ActionListener, MouseMoti
 		}
 		return sb.toString();
 	}
-	public void action(AWTEvent e){
-		if(e.getSource() == miExit)		System.exit(0);
-		if(e.getSource() == upName)		moveIndex(mFontName, true);
-		if(e.getSource() == downName)	moveIndex(mFontName, false);
-		if(e.getSource() == upSize)		moveIndex(mFontSize, true);
-		if(e.getSource() == downSize)	moveIndex(mFontSize, false);
-	}
 	
 	public void actionPerformed(ActionEvent e) {
-		action(e);
+		System.exit(0);
 	}
 	private void moveIndex(JMenu menu, boolean isUP){
 		int index = 1;
@@ -129,23 +118,58 @@ public class MyPopupMenu extends JPopupMenu implements ActionListener, MouseMoti
 			}
 		}
 	}
-
-	/*マウスを押している間、下に下がるようにしたかった。*/
-	//TODO 妥協プログラミング
-	public void mouseDragged(MouseEvent e) {
-		action(e);
-		try {
-			Thread.sleep(50);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+	
+	Thread thread;
+	
+	public void mousePressed(MouseEvent e){
+		thread = new Thread(new Runnable(){
+			private MouseEvent e;
+			
+			public Runnable setE(MouseEvent e){
+				this.e = e;
+				return this;
+			}
+			public void run() {
+				//クリック処理
+				try {
+					if(e.getSource() == upName)		moveIndex(mFontName, true);
+					if(e.getSource() == downName)	moveIndex(mFontName, false);
+					if(e.getSource() == upSize)		moveIndex(mFontSize, true);
+					if(e.getSource() == downSize)	moveIndex(mFontSize, false);
+					Thread.sleep(500);
+				} catch (InterruptedException e1) {
+					return;
+				}
+				//長押し処理
+				int ct = 0;
+				long ms = 100;
+				while(!thread.isInterrupted()){	//←終了条件間違っている？？　終了しない
+						try {
+							if(++ct % 10 == 0)	ms -= 30;
+							if(ms < 20)	ms = 20;
+							Thread.sleep(ms);
+							if(e.getSource() == upName)		moveIndex(mFontName, true);
+							if(e.getSource() == downName)	moveIndex(mFontName, false);
+							if(e.getSource() == upSize)		moveIndex(mFontSize, true);
+							if(e.getSource() == downSize)	moveIndex(mFontSize, false);
+						} catch (InterruptedException e1) {//こちらが終了条件
+							break;
+						}
+				}
+			}
+		}.setE(e));
+		thread.start();
 	}
-	public void mouseMoved(MouseEvent e) {
-		action(e);
-		try {
-			Thread.sleep(50);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+	public void mouseReleased(MouseEvent e){
+		thread.interrupt();
+	}
+
+	public void mouseClicked(MouseEvent e) {
+	}
+
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	public void mouseExited(MouseEvent e) {
 	}
 }

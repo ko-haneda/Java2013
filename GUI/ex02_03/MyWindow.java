@@ -1,4 +1,4 @@
-package ex02_03;
+package Swing.ex02_03;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
