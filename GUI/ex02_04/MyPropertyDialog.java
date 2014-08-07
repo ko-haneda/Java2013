@@ -19,6 +19,8 @@ public class MyPropertyDialog extends JDialog implements ActionListener,
 	private JTextField[] tf_chRGB;
 	private JScrollBar[] sb_bgRGB;
 	private JScrollBar[] sb_chRGB;
+	private JButton ok_btn;
+	private JButton ng_btn;
 
 	MyPropertyDialog(JFrame owner, MyFrameData data) {
 		super(owner);
@@ -54,7 +56,8 @@ public class MyPropertyDialog extends JDialog implements ActionListener,
 		}
 		tf_bgColor.setEditable(false);
 		tf_chColor.setEditable(false);
-		JButton btn = new JButton("更新");
+		ok_btn = new JButton("OK");
+		ng_btn = new JButton("NG");
 		// フォントの種類
 		addComponent(l_fontName, 0, 0, 4, 1); // ラベル
 		addComponent(cb_fontName, 4, 0, 2, 1); // リスト
@@ -78,8 +81,8 @@ public class MyPropertyDialog extends JDialog implements ActionListener,
 			addComponent(tf_chRGB[i], 6, (i + 7), 1, 1); // テキストフィールド
 		}
 		// 更新
-		addComponent(btn, 0, 10, 7, 1); // ボタン
-		addComponent(new JLabel("     "), 0, 11, 1, 1); // ダミー
+		addComponent(ok_btn, 5, 10, 2, 1); // ボタン
+		addComponent(ng_btn, 5, 11, 2, 1); // ボタン
 
 		tf_fontSize.addFocusListener(this);
 		for (int i = 0; i < 3; i++) {
@@ -88,7 +91,8 @@ public class MyPropertyDialog extends JDialog implements ActionListener,
 			tf_bgRGB[i].addFocusListener(this);
 			tf_chRGB[i].addFocusListener(this);
 		}
-		btn.addActionListener(this);
+		ok_btn.addActionListener(this);
+		ng_btn.addActionListener(this);
 		setTitle("プロパティダイアログ");
 		init();
 		setVisible(true);
@@ -136,16 +140,19 @@ public class MyPropertyDialog extends JDialog implements ActionListener,
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		data.setFontName(cb_fontName.getSelectedItem().toString());
-		int font_size = Integer.parseInt(tf_fontSize.getText());
-		if (font_size < 10)
-			font_size = 10;
-		if (font_size > 300)
-			font_size = 300;
-		data.setFontSize(font_size);
-		data.setBgColor(createColor(tf_bgRGB));
-		data.setChColor(createColor(tf_chRGB));
-		data.setPrefs();
+		if(e.getSource() == ok_btn){
+			data.setFontName(cb_fontName.getSelectedItem().toString());
+			int font_size = Integer.parseInt(tf_fontSize.getText());
+			if (font_size < 10)		font_size = 10;
+			if (font_size > 300)	font_size = 300;
+			data.setFontSize(font_size);
+			data.setBgColor(createColor(tf_bgRGB));
+			data.setChColor(createColor(tf_chRGB));
+		}
+		if(e.getSource() == ng_btn){
+			data.loadPrefs();
+			init();
+		}
 		owner.repaint();
 	}
 
@@ -190,8 +197,7 @@ public class MyPropertyDialog extends JDialog implements ActionListener,
 	private int checkInput(int input, int lower, int upper) {
 		if (input < lower || input > upper) {
 			input = (input < lower) ? lower : upper;
-			JOptionPane.showMessageDialog(this, lower + "以上" + upper
-					+ "以下の値に設定してください");
+			JOptionPane.showMessageDialog(this, lower + "以上" + upper + "以下の値に設定してください");
 		}
 		return input;
 	}

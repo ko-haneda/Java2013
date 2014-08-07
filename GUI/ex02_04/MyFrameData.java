@@ -1,4 +1,5 @@
 package ex02_04;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.util.prefs.BackingStoreException;
@@ -6,23 +7,14 @@ import java.util.prefs.Preferences;
 
 public class MyFrameData {
 
-	private Color bgColor;	//背景色
-	private Color chColor;	//文字色
-	private String fontName;//Fontの種類
-	private int fontSize;	//Fontのサイズ
-	private Preferences prefs; 
-	MyFrameData(){
-		this.prefs = Preferences.userNodeForPackage(this.getClass());
-		int bgColor_R = Integer.parseInt(prefs.get("bgColor_R", "0"));
-		int bgColor_G = Integer.parseInt(prefs.get("bgColor_G", "150"));
-		int bgColor_B = Integer.parseInt(prefs.get("bgColor_B", "200"));
-		int chColor_R = Integer.parseInt(prefs.get("chColor_R", "0"));
-		int chColor_G = Integer.parseInt(prefs.get("chColor_G", "0"));
-		int chColor_B = Integer.parseInt(prefs.get("chColor_B", "0"));
-		this.setBgColor(new Color(bgColor_R, bgColor_G, bgColor_B));
-		this.setChColor(new Color(chColor_R, chColor_G, chColor_B));
-		this.fontName = prefs.get("fontName", "Segoe UI Light");
-		this.fontSize = Integer.parseInt(prefs.get("fontSize", "100"));
+	private Color bgColor; // 背景色
+	private Color chColor; // 文字色
+	private String fontName;// Fontの種類
+	private int fontSize; // Fontのサイズ
+	private Preferences prefs;
+
+	MyFrameData() {
+		loadPrefs();
 	}
 
 	public Color getBgColor() {
@@ -61,6 +53,20 @@ public class MyFrameData {
 		return new Font(this.fontName, Font.BOLD, this.fontSize);
 	}
 
+	public void loadPrefs() {
+		this.prefs = Preferences.userNodeForPackage(this.getClass());
+		int bgColor_R = Integer.parseInt(prefs.get("bgColor_R", "0"));
+		int bgColor_G = Integer.parseInt(prefs.get("bgColor_G", "150"));
+		int bgColor_B = Integer.parseInt(prefs.get("bgColor_B", "200"));
+		int chColor_R = Integer.parseInt(prefs.get("chColor_R", "0"));
+		int chColor_G = Integer.parseInt(prefs.get("chColor_G", "0"));
+		int chColor_B = Integer.parseInt(prefs.get("chColor_B", "0"));
+		this.setBgColor(new Color(bgColor_R, bgColor_G, bgColor_B));
+		this.setChColor(new Color(chColor_R, chColor_G, chColor_B));
+		this.fontName = prefs.get("fontName", "Segoe UI Light");
+		this.fontSize = Integer.parseInt(prefs.get("fontSize", "100"));
+	}
+
 	public void setPrefs() {
 		prefs.put("bgColor_R", String.valueOf(getBgColor().getRed()));
 		prefs.put("bgColor_G", String.valueOf(getBgColor().getGreen()));
@@ -75,6 +81,31 @@ public class MyFrameData {
 		} catch (BackingStoreException e) {
 			e.printStackTrace();
 		}
+	}
 
+	public int getX() {
+		return Integer.parseInt(prefs.get("X", "0"));
+	}
+
+	public int getY() {
+		return Integer.parseInt(prefs.get("Y", "0"));
+	}
+
+	public void setX(int x) {
+		prefs.put("X", String.valueOf(x));
+		try {
+			prefs.flush();
+		} catch (BackingStoreException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void setY(int y) {
+		prefs.put("Y", String.valueOf(y));
+		try {
+			prefs.flush();
+		} catch (BackingStoreException e) {
+			e.printStackTrace();
+		}
 	}
 }

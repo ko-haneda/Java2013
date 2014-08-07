@@ -26,22 +26,4 @@ public class MyPanel extends JPanel {
 		g.drawString(Time.getTime(), (size.width - w) / 2, (size.height - h)
 				/ 2 + fm.getMaxAscent());
 	}
-
-	// public int seachFontSize(Graphics g, int wid, int hei){
-	// String str = Time.getTime();
-	// int w;
-	// int h;
-	// int font_size = 1;
-	// Font f = g.getFont();
-	// while(true){
-	// g.setFont(new Font(f.getFontName(), f.getStyle(), font_size));
-	// h = g.getFontMetrics().getHeight();
-	// w = g.getFontMetrics().stringWidth(str);
-	// if(w >= wid) break;
-	// if(h >= hei) break;
-	// font_size++;
-	// }
-	// g.setFont(new Font(f.getFontName(), f.getStyle(), font_size - 1));
-	// return font_size - 1;
-	// }
 }
